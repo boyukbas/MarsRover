@@ -11,7 +11,8 @@ namespace MarsRover.UnitTests
         [TestCase(1, 1, 'W', 0, 1)]
         public void Move_Action_ShouldChangeXorYby1(int x, int y, char compassDirection, int expectedX, int expectedY)
         {
-            var rover = new RoverCuriosity(x, y, compassDirection);
+            var plateau = new Plateau(5 ,5);
+            var rover = new RoverCuriosity(x, y, compassDirection, plateau);
             rover.MoveForward();
             Assert.That(rover.X() == expectedX);
             Assert.That(rover.Y() == expectedY);
@@ -23,7 +24,8 @@ namespace MarsRover.UnitTests
         [TestCase(1, 1, 'W', 'S')]
         public void RotateLeft_Action_ShouldChangeCompassDirection(int x, int y, char compassDirection, char expectedCompassDirection)
         {
-            var rover = new RoverCuriosity(x, y, compassDirection);
+            var plateau = new Plateau(5, 5);
+            var rover = new RoverCuriosity(x, y, compassDirection, plateau);
             rover.RotateLeft();
             Assert.That(rover.CompassDirection() == expectedCompassDirection + "");
         }
@@ -34,7 +36,8 @@ namespace MarsRover.UnitTests
         [TestCase(1, 1, 'W', 'N')]
         public void RotateRight_Action_ShouldChangeCompassDirection(int x, int y, char compassDirection, char expectedCompassDirection)
         {
-            var rover = new RoverCuriosity(x, y, compassDirection);
+            var plateau = new Plateau(5, 5);
+            var rover = new RoverCuriosity(x, y, compassDirection, plateau);
             rover.RotateRight();
             Assert.That(rover.CompassDirection() == expectedCompassDirection + "");
         }
