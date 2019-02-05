@@ -14,7 +14,7 @@ namespace MarsRover
             {
                 try
                 {
-                    plateau.AddRover(ReadRover());
+                    plateau.AddRover(ReadRover(plateau));
                 }
                 catch (InvalidOperationException exception)
                 {
@@ -36,14 +36,14 @@ namespace MarsRover
             return new Plateau(top, right);
         }
 
-        private static RoverCuriosity ReadRover()
+        private static RoverCuriosity ReadRover(Plateau plateau)
         {
             var roverInput = Console.ReadLine().Split(' ');
 
             var x = Convert.ToInt32(roverInput[0]);
             var y = Convert.ToInt32(roverInput[1]);
             var compassDirection = roverInput[2][0];
-            var rover = new RoverCuriosity(x, y, compassDirection)
+            var rover = new RoverCuriosity(x, y, compassDirection, plateau)
             {
                 MoveList = Console.ReadLine()
             };

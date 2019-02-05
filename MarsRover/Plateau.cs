@@ -29,6 +29,17 @@ namespace MarsRover
             Rovers.Add(rover);
         }
 
+        public bool IsPositionAvaible(int x, int y)
+        {
+            foreach (var rover in Rovers)
+            {
+                if (rover.X() == x && rover.Y() == y)
+                    return false;
+            }
+
+            return true;
+        }
+
         public string PrintCurrentStatus()
         {
             var roverList = new StringBuilder();

@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompassPoint.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="IDirection.cs" />
     <Compile Include="Plateau.cs" />
