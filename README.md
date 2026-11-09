@@ -1,22 +1,48 @@
-# MarsRover
-A squad of robotic rovers are to be landed by NASA on a plateau on Mars. This plateau, which is curiously rectangular, must be navigated by the rovers so that their on board cameras can get a complete view of the surrounding terrain to send back to Earth. 
-A rover's position and location is represented by a combination of x and y co-ordinates and a letter representing one of the four cardinal compass points. The plateau is divided up into a grid to simplify navigation. An example position might be 0, 0, N, which means the rover is in the bottom left corner and facing North. 
-In order to control a rover, NASA sends a simple string of letters. The possible letters are 'L', 'R' and 'M'. 'L' and 'R' makes the rover spin 90 degrees left or right respectively, without moving from its current spot. 'M' means move forward one grid point, and maintain the same heading. 
-Assume that the square directly North from (x, y) is (x, y+1). 
-Input: The first line of input is the upper-right coordinates of the plateau, the lower-left coordinates are assumed to be 0,0. 
-The rest of the input is information pertaining to the rovers that have been deployed. Each rover has two lines of input. The first line gives the rover's position, and the second line is a series of instructions telling the rover how to explore the plateau. 
-  
-The position is made up of two integers and a letter separated by spaces, corresponding to the x and y co-ordinates and the rover's orientation. 
-Each rover will be finished sequentially, which means that the second rover won't start to move until the first one has finished moving. 
-Output: The output for each rover should be its final co-ordinates and heading. 
+# Mars Rover
 
-Test Input:
-5 5
-1 2 N
+My 2019 solution to the classic **Mars Rover** coding exercise, in C# with unit
+tests. Rovers land on a rectangular plateau and follow strings of `L`, `R` and
+`M` commands; the program prints where each one ends up.
+
+```text
+Input            Output
+5 5              1 3 N
+1 2 N            5 1 E
 LMLMLMLMM
 3 3 E
 MMRMMRMRRM
+```
 
-Expected Output:
-1 3 N
-5 1 E 
+## The problem
+
+NASA lands a squad of robotic rovers on a plateau on Mars. The plateau is a grid,
+and a rover's position is its `x y` coordinates plus the compass direction it
+faces, e.g. `0 0 N` is the bottom-left corner facing north. The square directly
+north of `(x, y)` is `(x, y+1)`.
+
+- `L` and `R` turn the rover 90° left or right without moving.
+- `M` moves it forward one grid point, keeping its heading.
+
+**Input:** the first line is the plateau's upper-right corner (the lower-left is
+`0 0`). Each rover then has two lines: its starting position, and its commands.
+Rovers move one after another: the second starts only when the first has
+finished.
+
+**Output:** each rover's final coordinates and heading.
+
+## How it's built
+
+| Type | Role |
+|---|---|
+| `Plateau` | The grid. Rejects a rover that lands outside it, and knows which squares are taken. |
+| `IRover` / `RoverCuriosity` | Holds a position and a heading; turns, moves forward, and runs a whole command string. Refuses to drive into a square another rover occupies. |
+| `IDirection` + `DirectionNorth/East/South/West` | Each heading knows which heading is to its left and right, so turning is a lookup instead of a chain of `if`s. |
+
+The rules are covered by 29 NUnit test cases in `MarsRover.UnitTests` for
+directions, the plateau and the rover.
+
+## Run it
+
+It targets .NET Framework 4.5.2. Open `MarsRover/MarsRover.sln` in Visual
+Studio, press F5 and type or paste the input above. Run the tests with any
+NUnit 3 runner (in Visual Studio, add the NUnit 3 Test Adapter).
